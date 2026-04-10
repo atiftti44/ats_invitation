@@ -655,8 +655,29 @@
         }
 
         /* --- Responsif (Mobile Kecil) --- */
+        /* --- Responsif (Mobile Kecil) --- */
         @media (max-width: 768px) {
             .hero-title { font-size: 36px; }
+            
+            /* ... (kodingan lainnya biarkan saja) ... */
+
+            /* === TAMBAHKAN 2 BLOK KODE INI DI SINI === */
+            .modal {
+                align-items: flex-start; /* Memaksa pop-up mulai dari atas, bukan tengah */
+                overflow-y: auto; /* Memastikan pop-up bisa di-scroll pakai jari */
+            }
+            .modal-content {
+                margin: 20px auto; /* Kasih jarak aman 20px dari atas/bawah layar biar X gak kepotong */
+            }
+            /* ========================================= */
+
+            .modal-info { border-radius: 0; padding: 30px 20px; }
+            #modalFeatures { grid-template-columns: 1fr; }
+            .modal-media { padding: 30px 20px; }
+            #modalTitle { font-size: 24px; }
+            #modalPriceReal { font-size: 26px; }
+            .media-frame { max-width: 200px; }
+        
             
             #fitur-grid .container { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .etalase-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
