@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bikin Undangan Digital Pernikahan Professional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Base & Reset Styles --- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #a4c9e7, #e8edf0);
+            color: #333;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- Global Utility Classes --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* --- Hero Section --- */
+        #hero {
+            position: relative;
+            padding: 80px 0 120px 0;
+        }
+
+        .hero-layout {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-text {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            opacity: 0;
+            animation: slideRightFade 1s forwards;
+        }
+
+        .hero-title span {
+            color: #ff6600;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background-color: rgba(255, 102, 0, 0.1);
+            color: #ff6600;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 16px;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: slideRightFade 1s forwards 0.2s;
+        }
+
+        /* --- Mockup Layout (iPhone Pro Max Style) --- */
+        .hero-mockups {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 550px;
+            opacity: 0;
+            animation: slideLeftFade 1s forwards 0.4s;
+        }
+
+        .mockup-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .phone-mockup {
+            width: 250px;
+            height: 520px;
+            background: #1c1c1e;
+            border-radius: 45px;
+            padding: 8px;
+            box-shadow: 
+                inset 0 0 4px rgba(255, 255, 255, 0.3),
+                0 15px 35px rgba(0,0,0,0.25);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 1;
+        }
+
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            top: 110px;
+            left: -3px;
+            width: 3px;
+            height: 25px;
+            background: #444;
+            border-radius: 2px 0 0 2px;
+            box-shadow: 0 45px 0 0 #444, 0 95px 0 0 #444; 
+        }
+        .phone-mockup::after {
+            content: '';
+            position: absolute;
+            top: 150px;
+            right: -3px;
+            width: 3px;
+            height: 50px;
+            background: #444;
+            border-radius: 0 2px 2px 0;
+        }
+
+        .phone-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 37px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background-color: #000;
+            position: relative;
+            border: none;
+        }
+
+        .dynamic-island {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85px;
+            height: 26px;
+            background-color: #000;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        .dynamic-island::before {
+            content: '';
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background: #111;
+            border-radius: 50%;
+            box-shadow: inset 0 0 2px rgba(255,255,255,0.15);
+        }
+
+        .mockup-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: inherit;
+            pointer-events: none;
+        }
+
+        .mockup-left { transform: rotate(-10deg) translateY(30px); z-index: 2; }
+        .mockup-right { transform: rotate(10deg) translateY(-30px) translateX(-30px); z-index: 1; }
+
+        .mockup-container:hover .mockup-left { transform: rotate(-5deg) translateY(10px) scale(1.05); z-index: 3; }
+        .mockup-container:hover .mockup-right { transform: rotate(5deg) translateY(-10px) translateX(-10px) scale(1.05); z-index: 2; }
+
+        .svg-dekor { position: absolute; opacity: 0.1; z-index: 1; }
+        .svg-arrow { top: 50px; right: 40%; width: 120px; transform: rotate(15deg); }
+        .svg-dots { bottom: 50px; left: 5%; width: 100px; }
+
+        /* --- Text Support & Features --- */
+        #sub-text {
+            text-align: center;
+            font-size: 22px;
+            font-family: 'Playfair Display', serif;
+            color: #555;
+            padding-top: 0;
+            padding-bottom: 40px;
+        }
+
+        #fitur-grid {
+            padding-top: 0;
+        }
+
+        #fitur-grid .container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .fitur-card {
+            background-color: #fff;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .fitur-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+        }
+        
+        .fitur-icon { font-size: 32px; margin-bottom: 10px; }
+        .fitur-title { font-size: 15px; font-weight: 600; color: #444; }
+
+        /* --- Etalase Tema --- */
+        #etalase-tema {
+            background-color: rgba(255, 255, 255, 0.4);
+            padding: 60px 0;
+            border-radius: 30px;
+            margin: 40px 20px;
+        }
+
+        .tema-heading { display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+        .tema-title { font-size: 32px; margin: 0 20px; text-align: center; color: #333; }
+        .tema-line { height: 2px; background: #ccc; width: 80px; }
+
+        .filter-menu {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .filter-btn {
+            background: #fff;
+            border: 1px solid #ddd;
+            color: #555;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .filter-btn:hover {
+            border-color: #ff6600;
+            color: #ff6600;
+        }
+
+        .filter-btn.active {
+            background: #ff6600;
+            color: #fff;
+            border-color: #ff6600;
+            box-shadow: 0 4px 10px rgba(255, 102, 0, 0.2);
+        }
+
+        .etalase-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .etalase-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #eee;
+        }
+
+        .etalase-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-color: #ff6600;
+        }
+
+        /* --- FOTO PRODUK MENGGUNAKAN IMG TAG --- */
+        .etalase-img-box {
+            width: 100%;
+            height: 220px;
+            position: relative;
+            background: #e0e0e0;
+            overflow: hidden; 
+        }
+
+        .etalase-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .etalase-card:hover .etalase-img {
+            transform: scale(1.08); 
+        }
+
+        .badge-promo {
+            position: absolute;
+            top: 10px;
+            right: 0;
+            background: #ee4d2d;
+            color: white;
+            padding: 4px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 20px 0 0 20px;
+            z-index: 5;
+        }
+
+        .etalase-info {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .etalase-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.4;
+        }
+
+        .etalase-price {
+            margin-bottom: 8px;
+        }
+
+        .price-coret {
+            font-size: 12px;
+            color: #999;
+            text-decoration: line-through;
+            display: block;
+        }
+
+        .price-real {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ee4d2d;
+        }
+
+        .etalase-stats {
+            font-size: 11px;
+            color: #777;
+            margin-bottom: 15px;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .star-color {
+            color: #ffce3d;
+            font-size: 12px;
+        }
+
+        .etalase-btn {
+            width: 100%;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #ff6600;
+            color: #ff6600;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+        }
+
+        .etalase-btn:hover {
+            background: #ff6600;
+            color: #fff;
+        }
+
+        /* --- Buttons --- */
+        .btn-wrapper { text-align: center; padding: 40px 0; }
+        
+        .order-button {
+            background-color: #ff6600;
+            color: #fff;
+            font-weight: 700;
+            font-size: 18px;
+            padding: 16px 40px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255,102,0,0.3);
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .order-button:hover { background-color: #e65c00; transform: scale(1.05); box-shadow: 0 10px 25px rgba(255,102,0,0.4); }
+
+        .chat-mimin {
+            display: inline-flex;
+            align-items: center;
+            background-color: #fff;
+            color: #25d366;
+            border: 2px solid #25d366;
+            font-weight: 600;
+            font-size: 18px;
+            padding: 14px 35px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.1);
+        }
+
+        .chat-mimin:hover { background-color: #25d366; color: #fff; }
+
+        /* --- Modal Styles (Premium Version) --- */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            width: 100%;
+            max-width: 950px;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 25px;
+            top: 15px;
+            font-size: 32px;
+            font-weight: 400;
+            color: #888;
+            cursor: pointer;
+            z-index: 10;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover { color: #ff6600; }
+
+        .modal-body {
+            display: flex;
+            flex-wrap: wrap;
+            background: #fafafa;
+        }
+
+        .modal-media {
+            flex: 1;
+            min-width: 320px;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .media-frame {
+            background: #fff;
+            padding: 12px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .modal-info {
+            flex: 1.2;
+            padding: 50px 40px;
+            min-width: 320px;
+            background: #fff;
+            border-radius: 30px 0 0 30px;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #modalTitle {
+            font-size: 30px;
+            color: #222;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .modal-price-wrap {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        #modalPriceReal {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ff6600;
+        }
+        
+        .badge-modal {
+            background: rgba(255, 102, 0, 0.1);
+            color: #ff6600;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .modal-divider {
+            border: 0;
+            height: 1px;
+            background: #eaeaea;
+            margin-bottom: 25px;
+        }
+
+        .features-container h3 {
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        #modalFeatures {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            list-style: none;
+            padding: 0;
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        #modalFeatures::-webkit-scrollbar { width: 4px; }
+        #modalFeatures::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
+
+        #modalFeatures li {
+            font-size: 13px;
+            color: #555;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.4;
+        }
+
+        .check-icon {
+            color: #25d366;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .btn-wa-modal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: #25d366;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 16px;
+            border-radius: 14px;
+            border: none;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+            text-decoration: none; /* Tambahan agar teks di tag A tidak bergaris bawah */
+        }
+
+        .btn-wa-modal:hover {
+            background: #20bd5a;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(37, 211, 102, 0.3);
+            color: #fff;
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* --- Animations --- */
+        @keyframes slideRightFade {
+            0% { opacity: 0; transform: translateX(-30px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideLeftFade {
+            0% { opacity: 0; transform: translateX(30px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- Responsif (Tablet) --- */
+        @media (max-width: 992px) {
+            .hero-layout { flex-direction: column; text-align: center; }
+            .hero-text { margin: 0 auto; }
+            .hero-mockups { height: 450px; margin-top: 20px; }
+            .mockup-right { transform: rotate(10deg) translateY(-10px) translateX(-15px); }
+            
+            #fitur-grid .container { grid-template-columns: repeat(2, 1fr); }
+            .etalase-grid { grid-template-columns: repeat(3, 1fr); }
+            .svg-arrow { display: none; }
+        }
+
+        /* --- Responsif (Mobile Kecil) --- */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 36px; }
+            
+            #fitur-grid .container { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .etalase-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .etalase-img-box { height: 180px; }
+            .etalase-title { font-size: 13px; }
+            .price-real { font-size: 16px; }
+            .tema-line { width: 40px; }
+            .hero-mockups { height: 380px; }
+
+            .phone-mockup { width: 170px; height: 360px; padding: 6px; border-radius: 32px; }
+            .phone-inner { border-radius: 26px; }
+            .phone-mockup::before { top: 80px; height: 18px; box-shadow: 0 30px 0 0 #444, 0 65px 0 0 #444; }
+            .phone-mockup::after { top: 105px; height: 35px; }
+            .dynamic-island { width: 60px; height: 18px; top: 8px; }
+            .dynamic-island::before { width: 7px; height: 7px; right: 5px; }
+            
+            .mockup-left { transform: rotate(-6deg) translateY(10px) translateX(15px); }
+            .mockup-right { transform: rotate(6deg) translateY(-15px) translateX(-25px); }
+
+            .filter-menu {
+                overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start;
+                padding-bottom: 10px; -webkit-overflow-scrolling: touch;
+            }
+            .filter-btn { white-space: nowrap; flex-shrink: 0; }
+
+            .modal-info { border-radius: 0; padding: 30px 20px; }
+            #modalFeatures { grid-template-columns: 1fr; }
+            .modal-media { padding: 30px 20px; }
+            #modalTitle { font-size: 24px; }
+            #modalPriceReal { font-size: 26px; }
+            .media-frame { max-width: 200px; }
+        }
+
+        /* --- Responsif (Layar Sangat Kecil) --- */
+        @media (max-width: 480px) {
+            .hero-title { font-size: 32px; }
+            .hero-mockups { height: 340px; }
+
+            .phone-mockup { width: 140px; height: 300px; padding: 5px; border-radius: 28px; }
+            .phone-inner { border-radius: 23px; }
+            .phone-mockup::before { top: 60px; height: 15px; box-shadow: 0 25px 0 0 #444, 0 50px 0 0 #444; }
+            .phone-mockup::after { top: 80px; height: 28px; }
+            .dynamic-island { width: 50px; height: 15px; top: 6px; }
+            .dynamic-island::before { width: 6px; height: 6px; right: 4px; }
+            
+            .fitur-card { padding: 15px 10px; }
+            .fitur-icon { font-size: 24px; margin-bottom: 5px; }
+            .fitur-title { font-size: 13px; }
+
+            .etalase-img-box { height: 150px; }
+            .etalase-btn { font-size: 12px; padding: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <section id="hero">
+        <svg class="svg-dekor svg-dots" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="3" fill="#333"/><circle cx="25" cy="10" r="3" fill="#333"/><circle cx="40" cy="10" r="3" fill="#333"/>
+            <circle cx="10" cy="25" r="3" fill="#333"/><circle cx="25" cy="25" r="3" fill="#333"/><circle cx="40" cy="25" r="3" fill="#333"/>
+            <circle cx="10" cy="40" r="3" fill="#333"/><circle cx="25" cy="40" r="3" fill="#333"/><circle cx="40" cy="40" r="3" fill="#333"/>
+        </svg>
+
+        <div class="container hero-layout">
+            <div class="hero-text">
+                <div class="hero-badge">Siap Sebar Tanpa Batasan</div>
+                <h1 class="hero-title">Bikin Undangan Digital <span>Pernikahan</span></h1>
+                <p style="color: #666; font-size: 18px; margin-top: 15px;">Buat momen spesialmu lebih berkesan dengan undangan digital yang elegan, praktis, dan hemat.</p>
+            </div>
+            
+            <div class="hero-mockups">
+                <svg class="svg-dekor svg-arrow" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 20 80 C 40 60, 60 100, 80 80" stroke="#333" stroke-width="2" fill="none"/>
+                    <path d="M 70 85 L 80 80 L 70 75" stroke="#333" stroke-width="2" fill="none"/>
+                </svg>
+                <div class="mockup-container">
+                    
+                    <div class="phone-mockup mockup-left">
+                        <div class="phone-inner">
+                            <div class="dynamic-island"></div>
+                            <video class="mockup-video" autoplay loop muted playsinline>
+                                <source src="GDN/P1.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+
+                    <div class="phone-mockup mockup-right">
+                        <div class="phone-inner">
+                            <div class="dynamic-island"></div>
+                            <video class="mockup-video" autoplay loop muted playsinline>
+                                <source src="GDN/P2.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sub-text">
+        <div class="container">Fitur Unggulan Kami</div>
+    </section>
+
+    <section id="fitur-grid">
+        <div class="container">
+            <div class="fitur-card"><div class="fitur-icon">👤</div><div class="fitur-title">Nama Tamu</div></div>
+            <div class="fitur-card"><div class="fitur-icon">🔗</div><div class="fitur-title">Unlimited Share</div></div>
+            <div class="fitur-card"><div class="fitur-icon">✉️</div><div class="fitur-title">RSVP</div></div>
+            <div class="fitur-card"><div class="fitur-icon">📸</div><div class="fitur-title">Gallery Foto</div></div>
+            <div class="fitur-card"><div class="fitur-icon">🎁</div><div class="fitur-title">Wedding Gift</div></div>
+            <div class="fitur-card"><div class="fitur-icon">💖</div><div class="fitur-title">Love Story</div></div>
+            <div class="fitur-card"><div class="fitur-icon">💬</div><div class="fitur-title">Kolom Ucapan</div></div>
+            <div class="fitur-card"><div class="fitur-icon">🎵</div><div class="fitur-title">Backsound</div></div>
+            <div class="fitur-card"><div class="fitur-icon">⏳</div><div class="fitur-title">Countdown Acara</div></div>
+            <div class="fitur-card"><div class="fitur-icon">🗺️</div><div class="fitur-title">Maps Lokasi</div></div>
+            <div class="fitur-card"><div class="fitur-icon">🗓️</div><div class="fitur-title">Save The Date</div></div>
+            <div class="fitur-card"><div class="fitur-icon">▶️</div><div class="fitur-title">Live Streaming</div></div>
+        </div>
+    </section>
+
+    <section id="etalase-tema">
+        <div class="container">
+            <div class="tema-heading">
+                <div class="tema-line"></div>
+                <h2 class="tema-title">Pilih Tema Favoritmu</h2>
+                <div class="tema-line"></div>
+            </div>
+
+            <div class="filter-menu">
+                <button class="filter-btn active" data-filter="all">Semua</button>
+                <button class="filter-btn" data-filter="basic">Basic</button>
+                <button class="filter-btn" data-filter="luxury">Luxury</button>
+                <button class="filter-btn" data-filter="minimalis">Minimalis</button>
+                <button class="filter-btn" data-filter="khitanan">Aqiqah & Khitan</button>
+            </div>
+            
+            <div class="etalase-grid" id="produk-list">
+                
+                <div class="etalase-card" data-kategori="basic" 
+                     data-title="Tema Basic Elegan - Coklat Aesthetic" 
+                     data-price="Rp 50.000" 
+                     data-video="GDN/basic1.mp4" 
+                     data-features="Unlimited share, Hitung Mundur, Gallery 10 foto, Backsound Bebas Pilih, Love Story, Wedding Gift, Maps">
+                    
+                    <div class="etalase-img-box">
+                        <img src="GDN/s1.png" onerror="this.src='https://via.placeholder.com/300x400/eeeeee/cccccc?text=Foto+Tema+1'" alt="Tema Basic" class="etalase-img">
+           
+                    </div>
+
+                    <div class="etalase-info">
+                        <h3 class="etalase-title">Tema Basic Elegan - Coklat Aesthetic</h3>
+                        <div class="etalase-price">
+                            <span class="price-coret">Rp 100.000</span>
+                            <span class="price-real">Rp 50.000</span>
+                        </div>
+                        <div class="etalase-stats">
+                            
+                        </div>
+                        <a href="#" class="etalase-btn">Lihat Preview</a>
+                    </div>
+                </div>
+
+                <div class="etalase-card" data-kategori="luxury"
+                     data-title="Tema Luxury Gold - Premium Wedding VIP" 
+                     data-price="Rp 99.000" 
+                     data-video="GDN/P2.mp4" 
+                     data-features="Unlimited share, Nama Tamu, Gallery Prewed 30 Foto, Love Story, Wedding Gift/Angpao Digital, hitungan Mundur, Maps, RSVP, Animasi keren, request backsound, request Kata-kata  ">
+                    
+                    <div class="etalase-img-box">
+                         <img src="GDN/s12.png" onerror="this.src='https://via.placeholder.com/300x400/eeeeee/cccccc?text=Foto+Tema+2'" alt="Tema Luxury" class="etalase-img">
+                        <span class="badge-promo"></span>
+                    </div>
+
+                    <div class="etalase-info">
+                        <h3 class="etalase-title">Tema Luxury Gold - Premium Wedding </h3>
+                        <div class="etalase-price">
+                            <span class="price-coret">Rp 200.000</span>
+                            <span class="price-real">Rp 99.000</span>
+                        </div>
+                        <div class="etalase-stats">
+                            
+                        </div>
+                        <a href="#" class="etalase-btn">Lihat Preview</a>
+                    </div>
+                </div>
+
+                <div class="etalase-card" data-kategori="minimalis"
+                     data-title="Tema Minimalis Modern - Clean & Simple" 
+                     data-price="Rp 75.000" 
+                     data-video="GDN/P1.mp4" 
+                     data-features="Unlimited share, Nama Tamu, RSVP, Gallery 20 Foto, Maps Lokasi, Hitung mundur, request kata-kata, request backsound, Love story, Wedding gift">
+                    
+                    <div class="etalase-img-box">
+                         <img src="GDN/minimalismodern.png" onerror="this.src='https://via.placeholder.com/300x400/eeeeee/cccccc?text=Foto+Tema+3'" alt="Tema Minimalis" class="etalase-img">
+                    </div>
+
+                    <div class="etalase-info">
+                        <h3 class="etalase-title">Tema Minimalis Modern - Clean & Simple</h3>
+                        <div class="etalase-price">
+                            <span class="price-coret">Rp 120.000</span>
+                            <span class="price-real">Rp 75.000</span>
+                        </div>
+                        <div class="etalase-stats">
+                        
+                        </div>
+                        <a href="#" class="etalase-btn">Lihat Preview</a>
+                    </div>
+                </div>
+
+                <div class="etalase-card" data-kategori="khitanan"
+                     data-title="Tema Luxury - Flowers Minimalis" 
+                     data-price="Rp 90.000" 
+                     data-video="GDN/V1.mp4" 
+                     data-features="Unlimited share, Nama Tamu, Gallery Prewed 30 Foto, Love Story, Wedding Gift/Angpao Digital, hitungan Mundur, Maps, RSVP, Animasi keren, request backsound, request Kata-kata">
+                    
+                    <div class="etalase-img-box">
+                         <img src="GDN/s20.jpeg" onerror="this.src='https://via.placeholder.com/300x400/eeeeee/cccccc?text=Foto+Tema+4'" alt="Tema Khitanan" class="etalase-img">
+                    </div>
+
+                    <div class="etalase-info">
+                        <h3 class="etalase-title">Tema Luxury - Flowers Minimalis</h3>
+                        <div class="etalase-price">
+                            <span class="price-coret"></span>
+                            <span class="price-real">Rp 90.000</span>
+                        </div>
+                        <div class="etalase-stats">
+                        
+                        </div>
+                        <a href="#" class="etalase-btn">Lihat Preview</a>
+                    </div>
+                </div>
+
+                <div class="etalase-card" data-kategori="basic"
+                     data-title="Tema Luxury - Premium art" 
+                     data-price="Rp 90.000" 
+                     data-video="GDN/V2.mp4" 
+                     data-features="Unlimited share, Nama Tamu, Gallery Prewed 30 Foto, Love Story, Wedding Gift/Angpao Digital, hitungan Mundur, Maps, RSVP, Animasi keren, request backsound, request Kata-kata">
+                    
+                    <div class="etalase-img-box">
+                         <img src="GDN/S30.jpeg" onerror="this.src='https://via.placeholder.com/300x400/eeeeee/cccccc?text=Foto+Tema+5'" alt="Tema Floral" class="etalase-img">
+                    </div>
+
+                    <div class="etalase-info">
+                        <h3 class="etalase-title">Tema Luxury - Premium art</h3>
+                        <div class="etalase-price">
+                            <span class="price-coret"></span>
+                            <span class="price-real">Rp 90.0000</span>
+                        </div>
+                        <div class="etalase-stats">
+                          
+                        </div>
+                        <a href="#" class="etalase-btn">Lihat Preview</a>
+                    </div>
+                </div>
+
+                <div class="etalase-card" data-kategori="luxury"
+                     data-title="Tema Luxury Black - Exclusive Elegan Hitam" 
+                     data-price="Rp 90.000" 
+                     data-video="GDN/V3.mp4" 
+                     data-features="Full Dark Mode Mewah, Fitur VIP Lengkap, QR Code Tamu, Gallery Slider, Amplop Digital Custom">
+                    
+                    <div class="etalase-img-box">
+                         <img src="GDN/S40.jpeg" onerror="this.src='https://via.placeholder.com/300x400/eeeeee/cccccc?text=Foto+Tema+6'" alt="Tema Black" class="etalase-img">
+                    </div>
+
+                    <div class="etalase-info">
+                        <h3 class="etalase-title">Tema Luxury Black - Exclusive Elegan Hitam</h3>
+                        <div class="etalase-price">
+                            <span class="price-coret">Rp 200.000</span>
+                            <span class="price-real">Rp 90.000</span>
+                        </div>
+                        <div class="etalase-stats">
+                        </div>
+                        <a href="#" class="etalase-btn">Lihat Preview</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="btn-wrapper" style="padding-top: 0;">
+        <div class="container">
+            <button class="order-button">ORDER NOW</button>
+        </div>
+    </section>
+
+    <section class="btn-wrapper" style="padding-top: 0;">
+        <div class="container">
+            <a href="#" class="chat-mimin">💬 CHAT MIMIN</a>
+            <p style="margin-top: 20px; color: #666;">Sebar undangan tanpa batas dimana aja kapan aja!</p>
+        </div>
+    </section>
+
+    <div id="previewModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                
+                <div class="modal-media">
+                    <div class="media-frame" id="mediaContainer">
+                        </div>
+                </div>
+
+                <div class="modal-info">
+                    <h2 id="modalTitle">Nama Tema</h2>
+                    
+                    <div class="modal-price-wrap">
+                        <span id="modalPriceReal">Rp 0</span>
+                        <span class="badge-modal">Promo Spesial</span>
+                    </div>
+                    
+                    <hr class="modal-divider">
+                    
+                    <div class="features-container">
+                        <h3>Yang Akan Kamu Dapatkan:</h3>
+                        <ul id="modalFeatures">
+                            </ul>
+                    </div>
+
+                    <a id="btnOrderWa" href="#" target="_blank" class="btn-wa-modal">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.472 14.38C17.16 14.224 15.612 13.462 15.33 13.36C15.05 13.256 14.842 13.204 14.634 13.516C14.426 13.828 13.834 14.53 13.652 14.738C13.47 14.946 13.288 14.972 12.976 14.816C12.664 14.66 11.648 14.33 10.436 13.242C9.494 12.396 8.868 11.366 8.686 11.054C8.504 10.742 8.666 10.574 8.822 10.418C8.962 10.278 9.13 10.05 9.286 9.872C9.442 9.69 9.494 9.56 9.6 9.352C9.704 9.144 9.652 8.962 9.574 8.806C9.494 8.65 8.868 7.116 8.608 6.492C8.354 5.884 8.098 5.968 7.91 5.96C7.734 5.95 7.526 5.95 7.318 5.95C7.11 5.95 6.772 6.028 6.486 6.34C6.2 6.652 5.394 7.406 5.394 8.94C5.394 10.474 6.516 11.956 6.672 12.164C6.828 12.372 8.85 15.604 12.124 16.94C15.01 18.118 15.398 17.882 15.866 17.83C16.334 17.778 17.374 17.232 17.582 16.634C17.79 16.036 17.79 15.516 17.712 15.412C17.634 15.308 17.426 15.256 17.114 15.1M11.994 2C6.474 2 2 6.474 2 11.994C2 13.754 2.456 15.452 3.328 16.91L2 22L7.202 20.668C8.634 21.464 10.292 21.888 11.994 21.888C17.514 21.888 22 17.414 22 11.894C22 6.374 17.514 2 11.994 2Z" fill="white"/>
+                        </svg>
+                        Pesan via WhatsApp
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Efek Parallax Halus ---
+        window.addEventListener('scroll', function() {
+            if(window.innerWidth > 992) {
+                const scroll = window.pageYOffset;
+                const leftPhone = document.querySelector('.mockup-left');
+                const rightPhone = document.querySelector('.mockup-right');
+                
+                if(leftPhone && rightPhone) {
+                    leftPhone.style.transform = `rotate(-10deg) translateY(${30 + scroll * 0.05}px)`;
+                    rightPhone.style.transform = `rotate(10deg) translateY(${-30 + scroll * 0.08}px) translateX(-30px)`;
+                }
+            }
+        });
+
+        // --- Fitur Filter Produk ---
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.etalase-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                cards.forEach(card => {
+                    card.style.animation = 'none';
+                    if (filterValue === 'all' || card.getAttribute('data-kategori') === filterValue) {
+                        card.style.display = 'flex';
+                        void card.offsetWidth; 
+                        card.style.animation = 'fadeInScale 0.4s ease forwards';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // --- Fitur Modal Pop-up & GENERATE LINK WA ---
+        const modal = document.getElementById("previewModal");
+        const closeModal = document.querySelector(".close-modal");
+        const mediaContainer = document.getElementById("mediaContainer");
+        const btnOrderWa = document.getElementById("btnOrderWa");
+
+        // UBAH NOMOR WA DI SINI (Gunakan format 62 tanpa spasi atau +)
+        const nomorWA = "6285144924868"; 
+
+        document.querySelectorAll('.etalase-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const card = this.closest('.etalase-card');
+                
+                // Ambil data dari attribute
+                const title = card.getAttribute('data-title');
+                const price = card.getAttribute('data-price');
+                const videoSrc = card.getAttribute('data-video');
+                const features = card.getAttribute('data-features').split(',');
+
+                // Masukkan ke modal
+                document.getElementById("modalTitle").innerText = title;
+                document.getElementById("modalPriceReal").innerText = price;
+                
+                // Render Fitur
+                const featuresList = document.getElementById("modalFeatures");
+                featuresList.innerHTML = "";
+                features.forEach(f => {
+                    featuresList.innerHTML += `
+                        <li>
+                            <span class="check-icon">✔</span> 
+                            <span>${f.trim()}</span>
+                        </li>`;
+                });
+
+                // Render Media (Video di dalam frame aesthetic)
+                mediaContainer.innerHTML = `
+                    <video controls autoplay loop muted style="width: 100%; height: auto; border-radius: 12px;">
+                        <source src="${videoSrc}" type="video/mp4">
+                    </video>`;
+
+                // LOGIKA LINK WHATSAPP DINAMIS
+                const pesanWA = `Halo Admin, saya tertarik untuk memesan undangan digital.\n\nPilihan Tema : *${title}*`;
+                // encodeURIComponent digunakan agar spasi dan enter terbaca di URL
+                btnOrderWa.href = `https://wa.me/${nomorWA}?text=${encodeURIComponent(pesanWA)}`;
+
+                modal.style.display = "flex";
+            });
+        });
+
+        // Tutup modal
+        closeModal.onclick = () => { 
+            modal.style.display = "none"; 
+            mediaContainer.innerHTML = ""; 
+        }
+        window.onclick = (event) => { 
+            if (event.target == modal) { 
+                modal.style.display = "none"; 
+                mediaContainer.innerHTML = ""; 
+            } 
+        }
+    </script>
+</body>
+</html>
